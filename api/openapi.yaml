@@ -1,0 +1,285 @@
+openapi: 3.0.1
+info:
+  description: Created by AWS Lambda
+  title: CORE-ModelManager-API
+  version: 0.0.1
+servers:
+- url: "https://vy5wlaao1l.execute-api.us-east-1.amazonaws.com/{basePath}"
+  variables:
+    basePath:
+      default: default
+paths:
+  /api/v1/models/{caller_id}:
+    get:
+      operationId: GetModels
+      parameters:
+      - explode: false
+        in: path
+        name: caller_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+      x-accepts:
+      - application/json
+    post:
+      operationId: CreateModel
+      parameters:
+      - explode: false
+        in: path
+        name: caller_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /api/v1/model/{model_id}/version/{caller_id}:
+    post:
+      operationId: CreateModelVersion
+      parameters:
+      - explode: false
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: caller_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelVersion'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /api/v1/model/{model_id}/{caller_id}:
+    delete:
+      operationId: DeleteModel
+      parameters:
+      - explode: false
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: caller_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+      x-accepts:
+      - application/json
+    get:
+      operationId: GetModelDetails
+      parameters:
+      - explode: false
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: caller_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+      x-accepts:
+      - application/json
+    put:
+      operationId: UpdateModel
+      parameters:
+      - explode: false
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: caller_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /api/v1/model/{model_id}/versions/{version_id}/{caller_id}:
+    delete:
+      operationId: DeleteModelVersion
+      parameters:
+      - explode: false
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: caller_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: version_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+      x-accepts:
+      - application/json
+    put:
+      operationId: UpdateModelVersion
+      parameters:
+      - explode: false
+        in: path
+        name: model_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: caller_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: version_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelVersion'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Empty'
+          description: 200 response
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+components:
+  schemas:
+    Empty:
+      title: Empty Schema
+      type: object
+    Model:
+      example:
+        name: name
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    ModelVersion:
+      example:
+        contextWindow: 0
+        trainingData: trainingData
+        description: description
+        maxOutputTokens: 6
+        versionNumber: versionNumber
+      properties:
+        versionNumber:
+          type: string
+        contextWindow:
+          type: integer
+        maxOutputTokens:
+          type: integer
+        trainingData:
+          type: string
+        description:
+          type: string
+      type: object
+
